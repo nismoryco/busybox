@@ -2431,8 +2431,7 @@ static NOINLINE void ntp_init(char **argv)
 		G.stratum = 1;
 	}
 
-	if (!(opts & OPT_n)) /* only if backgrounded: */
-		write_pidfile_std_path_and_ext("ntpd");
+	write_pidfile_std_path_and_ext("ntpd");
 
 	/* If network is up, syncronization occurs in ~10 seconds.
 	 * We give "ntpd -q" 10 seconds to get first reply,
