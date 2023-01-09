@@ -160,6 +160,7 @@ struct globals {
 	char *env_var_home;
 	char *env_var_shell;
 	char *env_var_logname;
+	char *env_var_crond;
 #endif
 } FIX_ALIASING;
 #define G (*(struct globals*)bb_common_bufsiz1)
@@ -671,12 +672,14 @@ static void set_env_vars(struct passwd *pas, const char *shell, const char *path
 	safe_setenv(&G.env_var_home, "HOME", pas->pw_dir);
 	safe_setenv(&G.env_var_shell, "SHELL", shell);
 	if (path) safe_setenv(&G.env_var_shell, "PATH", path);
+	safe_setenv(&G.env_var_crond, "CROND", "1");
 #else
 	xsetenv("LOGNAME", pas->pw_name);
 	xsetenv("USER", pas->pw_name);
 	xsetenv("HOME", pas->pw_dir);
 	xsetenv("SHELL", shell);
 	if (path) xsetenv("PATH", path);
+	xsetenv("CROND", "1");
 #endif
 }
 
